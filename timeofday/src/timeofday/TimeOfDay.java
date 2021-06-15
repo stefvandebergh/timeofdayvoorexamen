@@ -7,11 +7,9 @@ package timeofday;
  */
 public class TimeOfDay {
 	/**
-	 * @invar | hours >= 0 && hours <= 23
-	 * @invar | minutes >= 0 && minutes <= 59
+	 * @invar | minutesSinceMidnight >= 0 && minutesSinceMidnight <=1439
 	 */
-	private int hours;
-	private int minutes;
+	private int minutesSinceMidnight;
 	
 	
 	
@@ -22,22 +20,21 @@ public class TimeOfDay {
 	 * @post | this.getMinutes() == minutes
 	 */
 	public TimeOfDay(int hours, int minutes){
-		this.hours= hours;
-		this.minutes = minutes;
+		this.minutesSinceMidnight= 60*hours + minutes;
 	}
 	
 	/**
 	 * @basic
 	 */
 	public int getHours() {
-		return this.hours;
+		return minutesSinceMidnight / 60;
 	}
 	
 	/**
 	 * @basic
 	 */
 	public int getMinutes() {
-		return this.minutes;
+		return minutesSinceMidnight % 60;
 	}
 	
 	/**
@@ -46,7 +43,7 @@ public class TimeOfDay {
 	 * @post | getMinutes() == old(getMinutes())
 	 */
 	public void setHours(int newHours) {
-		this.hours = newHours;
+		this.minutesSinceMidnight = minutesSinceMidnight % 60 + 60 * newHours;
 	}
 	
 	/**
@@ -55,6 +52,6 @@ public class TimeOfDay {
 	 * @post | getHours() == old(getHours())
 	 */
 	public void setMinutes(int newMinutes) {
-		this.minutes = newMinutes;
+		this.minutesSinceMidnight= minutesSinceMidnight / 60 *60 + newMinutes;
 	}
 }
